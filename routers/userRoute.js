@@ -6,4 +6,6 @@ let userRoute = Router();
 
 userRoute.get('/signup', userController.UserSignup);
 
+userRoute.get('/login', userController.UserLogin);
+
 module.exports = userRoute;

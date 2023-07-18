@@ -7,7 +7,6 @@ require('dotenv').config();
 
 let app = express();
 let port = process.env.port || 3000;
-app.set('views' + __dirname + 'views');
 app.use(express.json());
 dbConnect();
 

@@ -1,4 +1,6 @@
-const UserSignup = (req, res) => {
+const { userSchema } = require("../models/userShema");
+
+const UserSignup = async (req, res) => {
 
     let user = ({
 
@@ -8,10 +10,29 @@ const UserSignup = (req, res) => {
 
     });
 
+    let existingUser = await userSchema.findOne({ username: user.username });
 
-    console.log(user);
-    res.send(user);
+    console.log(user, existingUser);
 
-}
+    if (existingUser) {
 
-module.exports = { UserSignup };
+        res.json({ message: 'User already exists' });
+
+    } else {
+
+        userSchema.create(user);
+        res.send(user);
+
+    };
+
+};
+
+const UserLogin = async (req, res) => {
+
+    let checkUser = userSchema.find({ username: req.body.username, password: req.body.password });
+    console.log(checkUser);
+    res.send(checkUser);
+
+};
+
+module.exports = { UserSignup, UserLogin };
