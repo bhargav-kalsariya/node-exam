@@ -8,16 +8,23 @@ exports.userSignup = async (req, res) => {
         password: req.body.password
     });
 
+    let messageforfrontend = '';
+
     let existingUser = await userSchema.findOne({ username: req.body.username });
 
     if (existingUser) {
 
-        return res.send({ message: 'User already exists' });
+        messageforfrontend = "user already exists";
 
-    };
+    }
+    else {
 
-    await userSchema.create(user);
+        await userSchema.create(user);
+        messageforfrontend = 'user created successfully';
 
-    res.send(user);
+    }
+
+
+    res.status(201).json({ messageforfrontend });
 
 };
