@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registration</title>
+</head>
+
+<body>
+    <h1>Registration</h1>
+    <form id="registrationForm">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+
+        document.getElementById('registrationForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = {
+                username: document.getElementsByName('username')[0].value,
+                email: document.getElementsByName('email')[0].value,
+                password: document.getElementsByName('password')[0].value,
+                confirmPassword: document.getElementsByName('confirmPassword')[0].value
+            };
+
+            // Send a POST request to the registration API endpoint
+            fetch('http://localhost:7878/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response from the backend
+                    console.log(data);
+                    // Redirect to the login page or display a success message
+                })
+                .catch(error => {
+                    // Handle any errors that occur during the request
+                    console.error(error);
+                });
+        });
+
+    </script>
+
+</body>
+
+</html>
