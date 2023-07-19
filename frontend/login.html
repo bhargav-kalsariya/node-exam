@@ -37,27 +37,32 @@
                 },
                 body: JSON.stringify(formData)
 
-            })
-                .then(response => response.json())
-                .then(data => {
+            }).then(response => {
 
-                    const messageElement = document.getElementById('message');
+                return response.json();
 
-                    if (data.redirectTo) {
+            }).then(data => {
 
-                        window.location.href = data.redirectTo;
+                const messageElement = document.getElementById('message');
 
-                    } else {
+                if (data.token) {
 
-                        messageElement.textContent = data.messageforfrontend;
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('username', data.username);
+                    window.location.href = '/dashboard.html';
 
-                    }
+                } else {
 
-                }).catch(error => {
+                    messageElement.textContent = data.messageforfrontend;
+                    console.log(data.messageforfrontend);
 
-                    console.error(error);
+                }
 
-                });
+            }).catch(error => {
+
+                console.error(error);
+
+            });
 
         });
 

@@ -6,9 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-this is dashboard
 
 <body>
+
+    this is dashboard page
+
+    <h1 id="username"> </h1>
+
+    <button id="logout">logout</button>
+
+    <script>
+
+        let username = localStorage.getItem('username');
+        let token = localStorage.getItem('token');
+
+        if (username && token) {
+
+            let usernameshow = document.getElementById('username');
+
+            usernameshow.innerHTML = `welcome: ${username}`;
+
+            // logout //
+
+            let logout = document.getElementById('logout');
+
+            logout.addEventListener('click', () => {
+
+                localStorage.removeItem('username');
+                localStorage.removeItem('token');
+
+                window.location.href = '/login.html';
+
+            })
+
+        } else {
+
+            window.location.href = '/login.html';
+
+        }
+
+
+    </script>
 
 </body>
 

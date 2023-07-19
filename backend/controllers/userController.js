@@ -1,5 +1,8 @@
 const { userSchema } = require('../models/userShema');
+require('dotenv').config();
+
 const jwt = require('jsonwebtoken');
+const secretkey = process.env.jwt;
 
 exports.userSignup = async (req, res) => {
 
@@ -44,16 +47,18 @@ exports.userLogin = async (req, res) => {
 
     try {
 
+        let { username, password } = req.body;
         let users = await userSchema.find();
-        let checkuser = users.find(user => user.username === req.body.username && user.password === req.body.password);
+        let checkuser = users.find(user => user.username === username && user.password === password);
 
         if (checkuser) {
 
-            res.status(200).json({ redirectTo: '/dashboard.html' });
+            const token = jwt.sign({ username: username }, secretkey);
+            res.status(200).json({ token, username });
 
         } else {
 
-            res.status(200).json({ messageforfrontend: 'username or password is incorrect' });
+            res.status(401).json({ messageforfrontend: 'username or password is incorrect' });
 
         }
 
@@ -61,8 +66,26 @@ exports.userLogin = async (req, res) => {
     } catch (error) {
 
         console.log(error);
-        res.status(500).json({ messageforfrontend: error });
+        res.status(500).json({ error });
 
     };
+
+};
+
+exports.userDetails = async (req, res) => {
+
+    let users = await userSchema.find();
+
+    users.forEach(user => {
+
+        console.log(user.id);
+
+    });
+
+};
+
+exports.userLogout = async (req, res) => {
+
+    console.log(req.session.token, req.session.username);
 
 };
