@@ -2,29 +2,66 @@ const { userSchema } = require('../models/userShema');
 
 exports.userSignup = async (req, res) => {
 
-    let user = ({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password
-    });
+    try {
 
-    let messageforfrontend = '';
+        let user = ({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password
+        });
 
-    let existingUser = await userSchema.findOne({ username: req.body.username });
+        let messageforfrontend = '';
+        let existingUser = await userSchema.findOne({ username: req.body.username });
 
-    if (existingUser) {
+        if (existingUser) {
 
-        messageforfrontend = "user already exists";
+            messageforfrontend = "user already exists";
 
-    }
-    else {
+        }
+        else {
 
-        await userSchema.create(user);
-        messageforfrontend = 'user created successfully';
+            await userSchema.create(user);
+            messageforfrontend = 'user created successfully';
 
-    }
+        }
 
 
-    res.status(201).json({ messageforfrontend });
+        res.status(201).json({ messageforfrontend });
+
+    } catch (error) {
+
+        console.log(error);
+        res.status(500).json({ error: error });
+
+    };
+
+};
+
+exports.userLogin = async (req, res) => {
+
+    try {
+
+        let messageforfrontend = '';
+        let users = await userSchema.find();
+        let checkuser = users.find(user => user.username === req.body.username && user.password === req.body.password);
+
+        if (checkuser) {
+
+            messageforfrontend = 'you are now logged in';
+
+        } else {
+
+            messageforfrontend = 'username or password is incorrect';
+
+        }
+
+        res.status(200).json({ messageforfrontend });
+
+    } catch (error) {
+
+        console.log(error);
+        res.status(500).json({ error: error });
+
+    };
 
 };

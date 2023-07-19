@@ -1,41 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Registration</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 
 <body>
-    <h1>Registration</h1>
-    <form id="registrationForm">
+    <h1>Login</h1>
+    <form id="loginForm">
         <input type="text" name="username" placeholder="Username" required>
-        <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Password" required>
-        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
     </form>
     <div id="message"></div>
 
     <script>
 
-        document.getElementById('registrationForm').addEventListener('submit', function (e) {
+        document.querySelector('#loginForm').addEventListener('submit', (e) => {
 
             e.preventDefault();
 
             const formData = {
 
                 username: document.getElementsByName('username')[0].value,
-                email: document.getElementsByName('email')[0].value,
-                password: document.getElementsByName('password')[0].value,
-                confirmPassword: document.getElementsByName('confirmPassword')[0].value
+                password: document.getElementsByName('password')[0].value
 
             };
 
-            fetch('http://localhost:7878/api/auth/register', {
+            fetch('http://localhost:7878/api/auth/login', {
 
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/JSON'
                 },
                 body: JSON.stringify(formData)
 
@@ -47,9 +45,9 @@
 
                     if (data.messageforfrontend) {
 
-                        console.log(data.messageforfrontend);
                         messageElement.textContent = data.messageforfrontend;
-                        messageElement.style.color = 'green';
+                        messageElement.style.color = 'red';
+                        console.log(data.messageforfrontend);
 
                     }
 
@@ -58,6 +56,7 @@
                     console.error(error);
 
                 });
+
         });
 
     </script>
