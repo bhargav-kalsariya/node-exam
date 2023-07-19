@@ -43,11 +43,13 @@
 
                     const messageElement = document.getElementById('message');
 
-                    if (data.messageforfrontend) {
+                    if (data.redirectTo) {
+
+                        window.location.href = data.redirectTo;
+
+                    } else {
 
                         messageElement.textContent = data.messageforfrontend;
-                        messageElement.style.color = 'red';
-                        console.log(data.messageforfrontend);
 
                     }
 

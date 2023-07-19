@@ -1,13 +1,16 @@
 const { userSchema } = require('../models/userShema');
+const jwt = require('jsonwebtoken');
 
 exports.userSignup = async (req, res) => {
 
     try {
 
         let user = ({
+
             username: req.body.username,
             email: req.body.email,
             password: req.body.password
+
         });
 
         let messageforfrontend = '';
@@ -31,7 +34,7 @@ exports.userSignup = async (req, res) => {
     } catch (error) {
 
         console.log(error);
-        res.status(500).json({ error: error });
+        res.status(500).json({ messageforfrontend: error });
 
     };
 
@@ -41,26 +44,24 @@ exports.userLogin = async (req, res) => {
 
     try {
 
-        let messageforfrontend = '';
         let users = await userSchema.find();
         let checkuser = users.find(user => user.username === req.body.username && user.password === req.body.password);
 
         if (checkuser) {
 
-            messageforfrontend = 'you are now logged in';
+            res.status(200).json({ redirectTo: '/dashboard.html' });
 
         } else {
 
-            messageforfrontend = 'username or password is incorrect';
+            res.status(200).json({ messageforfrontend: 'username or password is incorrect' });
 
         }
 
-        res.status(200).json({ messageforfrontend });
 
     } catch (error) {
 
         console.log(error);
-        res.status(500).json({ error: error });
+        res.status(500).json({ messageforfrontend: error });
 
     };
 
