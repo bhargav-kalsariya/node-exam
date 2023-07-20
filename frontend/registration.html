@@ -3,18 +3,75 @@
 
 <head>
     <title>Registration</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            width: 1120px;
+            margin: 0 auto;
+        }
+
+        .d-flex {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .padding {
+            padding: 1.5rem;
+        }
+
+        ul,
+        li,
+        a {
+            text-decoration: none;
+            list-style: none;
+        }
+
+        .menus ul li {
+            flex-direction: row;
+            padding: 0 1rem;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Registration</h1>
-    <form id="registrationForm">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
-        <button type="submit">Register</button>
-    </form>
-    <div id="message"></div>
+    <div class="container">
+
+        <div class="d-flex padding">
+
+            <div class="logo">
+                <a href="/frontend/index.html">logo</a>
+            </div>
+
+            <div class="menus">
+
+                <ul class="d-flex">
+                    <li><a href="/frontend/index.html">Home</a></li>
+                    <li><a href="/frontend/dashboard.html">dashboard</a></li>
+                    <li><a href="/frontend/registration.html">signup</a></li>
+                    <li><a href="/frontend/login.html">login</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <h1>Registration</h1>
+        <form id="registrationForm">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+            <button type="submit">Register</button>
+        </form>
+        <div id="message"></div>
+    </div>
 
     <script>
 

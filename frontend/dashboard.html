@@ -5,15 +5,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            width: 1120px;
+            margin: 0 auto;
+        }
+
+        .d-flex {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .padding {
+            padding: 1.5rem;
+        }
+
+        ul,
+        li,
+        a {
+            text-decoration: none;
+            list-style: none;
+        }
+
+        .menus ul li {
+            flex-direction: row;
+            padding: 0 1rem;
+        }
+    </style>
+
 </head>
 
 <body>
+    <div class="container">
 
-    this is dashboard page
+        <div class="d-flex padding">
 
-    <div id="user-datails"> </div>
+            <div class="logo">
+                <a href="/frontend/index.html">logo</a>
+            </div>
 
-    <button id="logout">logout</button>
+            <div class="menus">
+
+                <ul class="d-flex">
+                    <li><a href="/frontend/index.html">Home</a></li>
+                    <li><a href="/frontend/dashboard.html">dashboard</a></li>
+                    <li><a href="/frontend/registration.html">signup</a></li>
+                    <li><a href="/frontend/login.html">login</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div id="user-datails"> </div>
+        <button id="logout">logout</button>
+    </div>
+
+
 
     <script>
 

@@ -5,16 +5,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            width: 1120px;
+            margin: 0 auto;
+        }
+
+        .d-flex {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .padding {
+            padding: 1.5rem;
+        }
+
+        ul,
+        li,
+        a {
+            text-decoration: none;
+            list-style: none;
+        }
+
+        .menus ul li {
+            flex-direction: row;
+            padding: 0 1rem;
+        }
+    </style>
+
 </head>
 
 <body>
-    <h1>Login</h1>
-    <form id="loginForm">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-    </form>
-    <div id="message"></div>
+    <div class="container">
+
+        <div class="d-flex padding">
+
+            <div class="logo">
+                <a href="/frontend/index.html">logo</a>
+            </div>
+
+            <div class="menus">
+
+                <ul class="d-flex">
+                    <li><a href="/frontend/index.html">Home</a></li>
+                    <li><a href="/frontend/dashboard.html">dashboard</a></li>
+                    <li><a href="/frontend/registration.html">signup</a></li>
+                    <li><a href="/frontend/login.html">login</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <h1>Login</h1>
+        <form id="loginForm">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div id="message"></div>
+    </div>
 
     <script>
 
@@ -48,7 +106,7 @@
                 if (data.accessToken) {
 
                     localStorage.setItem('token', data.accessToken);
-                    window.location.href = '/dashboard.html';
+                    window.location.href = '/frontend/dashboard.html';
 
                 } else {
 
