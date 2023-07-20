@@ -88,8 +88,7 @@ exports.userDetails = async (req, res) => {
 
         }
 
-
-        console.log(user, findUser);
+        // console.log(user, findUser);
 
     } catch (error) {
 
