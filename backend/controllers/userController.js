@@ -86,6 +86,6 @@ exports.userDetails = async (req, res) => {
 
 exports.userLogout = async (req, res) => {
 
-    console.log(req.session.token, req.session.username);
+    console.log(req.session);
 
 };
