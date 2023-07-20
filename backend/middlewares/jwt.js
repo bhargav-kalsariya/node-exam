@@ -5,10 +5,10 @@ let secretkey = process.env.jwt;
 
 exports.jwt_authenticate = (req, res, next) => {
 
-    const authHeader = req.headers['Authorization'];
-    const token = authHeader && authHeader.split('')[1];
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
 
-    if (token == null) {
+    if (!token) {
 
         return res.sendStatus(401);
 
@@ -18,7 +18,7 @@ exports.jwt_authenticate = (req, res, next) => {
 
         if (err) {
 
-            return res.sendStatus(401);
+            return res.sendStatus(403);
 
         }
 

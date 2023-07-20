@@ -11,41 +11,46 @@
 
     this is dashboard page
 
-    <h1 id="username"> </h1>
+    <div id="user-datails"> </div>
 
     <button id="logout">logout</button>
 
     <script>
 
-        let username = localStorage.getItem('username');
-        let token = localStorage.getItem('token');
+        function getAuthToken() {
 
-        if (username && token) {
-
-            let usernameshow = document.getElementById('username');
-
-            usernameshow.innerHTML = `welcome: ${username}`;
-
-            // logout //
-
-            let logout = document.getElementById('logout');
-
-            logout.addEventListener('click', () => {
-
-                localStorage.removeItem('username');
-                localStorage.removeItem('token');
-
-                window.location.href = '/login.html';
-
-            })
-
-        } else {
-
-            window.location.href = '/login.html';
+            return localStorage.getItem('token');
 
         }
 
+        function fetchUserDetails() {
 
+            fetch('http://localhost:7878/api/auth/user', {
+
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${getAuthToken()}`
+                },
+
+            })
+                .then(response => response.json())
+                .then(user => {
+
+
+                    console.log(user.user.user.username);
+                    const user_datails = document.getElementById('user-datails');
+                    user_datails.innerHTML = `
+                        <p>username : ${user.user.user.username}</p><br>
+                        <p>email : ${user.email}</p><br>
+                    `;
+
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
+
+        window.addEventListener('load', fetchUserDetails);
     </script>
 
 </body>

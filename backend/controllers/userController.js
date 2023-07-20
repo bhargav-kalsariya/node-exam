@@ -48,13 +48,12 @@ exports.userLogin = async (req, res) => {
     try {
 
         let { username, password } = req.body;
-        let users = await userSchema.find();
-        let checkuser = users.find(user => user.username === username && user.password === password);
+        let users = await userSchema.findOne({ username, password });
 
-        if (checkuser) {
+        if (users) {
 
-            const token = jwt.sign({ username: username }, secretkey);
-            res.status(200).json({ token, username });
+            const token = jwt.sign({ user: users }, secretkey);
+            res.status(200).json({ token });
 
         } else {
 
@@ -74,18 +73,16 @@ exports.userLogin = async (req, res) => {
 
 exports.userDetails = async (req, res) => {
 
-    let users = await userSchema.find();
+    try {
 
-    users.forEach(user => {
+        let user = req.user;
+        res.json({ user });
 
-        console.log(user.id);
+    } catch (error) {
 
-    });
+        console.log(error);
+        res.status(500).json({ error });
 
-};
-
-exports.userLogout = async (req, res) => {
-
-    console.log(req.session);
+    }
 
 };

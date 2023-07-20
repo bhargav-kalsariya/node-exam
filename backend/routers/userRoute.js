@@ -9,6 +9,5 @@ userRoute.post('/login', userController.userLogin);
 
 userRoute.get('/user', jwt_authenticate, userController.userDetails);
 
-userRoute.post('/logout', userController.userLogout);
 
 module.exports = userRoute;
