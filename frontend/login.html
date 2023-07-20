@@ -45,14 +45,14 @@
 
                 const messageElement = document.getElementById('message');
 
-                if (data.token) {
+                if (data.accessToken) {
 
-                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('token', data.accessToken);
                     window.location.href = '/dashboard.html';
 
                 } else {
 
-                    messageElement.textContent = data.messageforfrontend;
+                    alert(data.messageforfrontend);
                     console.log(data.messageforfrontend);
 
                 }

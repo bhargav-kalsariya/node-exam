@@ -48,12 +48,12 @@ exports.userLogin = async (req, res) => {
     try {
 
         let { username, password } = req.body;
-        let users = await userSchema.findOne({ username, password });
+        let user = await userSchema.findOne({ username, password });
 
-        if (users) {
+        if (user) {
 
-            const token = jwt.sign({ user: users }, secretkey);
-            res.status(200).json({ token });
+            const token = jwt.sign(user.id, secretkey);
+            res.status(200).json({ accessToken: token });
 
         } else {
 
@@ -76,7 +76,20 @@ exports.userDetails = async (req, res) => {
     try {
 
         let user = req.user;
-        res.json({ user });
+        let findUser = await userSchema.findById(user);
+
+        if (findUser) {
+
+            res.json(findUser);
+
+        } else {
+
+            res.json({ error: 'User not found' });
+
+        }
+
+
+        console.log(user, findUser);
 
     } catch (error) {
 

@@ -17,40 +17,50 @@
 
     <script>
 
-        function getAuthToken() {
+        let token = localStorage.getItem('token');
 
-            return localStorage.getItem('token');
+        const isTokenValid = token && !document.location.pathname.includes('login.html');
+        console.log(isTokenValid);
 
-        }
-
-        function fetchUserDetails() {
+        if (isTokenValid) {
 
             fetch('http://localhost:7878/api/auth/user', {
 
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${getAuthToken()}`
+                    'Authorization': `Bearer ${token}`
                 },
 
             })
                 .then(response => response.json())
-                .then(user => {
+                .then((user) => {
 
-
-                    console.log(user.user.user.username);
+                    console.log(user);
                     const user_datails = document.getElementById('user-datails');
                     user_datails.innerHTML = `
-                        <p>username : ${user.user.user.username}</p><br>
-                        <p>email : ${user.email}</p><br>
+                        <p>username : ${user.username}</p>
+                        <p>email : ${user.email}</p>
                     `;
 
                 })
                 .catch(error => {
                     console.log(error);
                 })
+
+        } else {
+
+            window.location.href = '/frontend/login.html';
+
         }
 
-        window.addEventListener('load', fetchUserDetails);
+        let logout = document.getElementById('logout');
+        logout.addEventListener('click', () => {
+
+            localStorage.removeItem('token');
+            window.location.href = '/frontend/login.html';
+
+        });
+
     </script>
 
 </body>
