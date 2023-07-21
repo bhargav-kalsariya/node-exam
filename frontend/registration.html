@@ -74,48 +74,56 @@
     </div>
 
     <script>
+        let token = localStorage.getItem("token");
 
-        document.getElementById('registrationForm').addEventListener('submit', function (e) {
+        if (token) {
 
-            e.preventDefault();
+            window.location.href = '/frontend/dashboard.html';
 
-            const formData = {
+        } else {
 
-                username: document.getElementsByName('username')[0].value,
-                email: document.getElementsByName('email')[0].value,
-                password: document.getElementsByName('password')[0].value,
-                confirmPassword: document.getElementsByName('confirmPassword')[0].value
+            document.getElementById('registrationForm').addEventListener('submit', function (e) {
 
-            };
+                e.preventDefault();
 
-            fetch('http://localhost:7878/api/auth/register', {
+                const formData = {
 
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
+                    username: document.getElementsByName('username')[0].value,
+                    email: document.getElementsByName('email')[0].value,
+                    password: document.getElementsByName('password')[0].value,
+                    confirmPassword: document.getElementsByName('confirmPassword')[0].value
 
-            })
-                .then(response => response.json())
-                .then(data => {
+                };
 
-                    const messageElement = document.getElementById('message');
+                fetch('http://localhost:7878/api/auth/register', {
 
-                    if (data.messageforfrontend) {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
 
-                        console.log(data.messageforfrontend);
-                        messageElement.textContent = data.messageforfrontend;
-                        messageElement.style.color = 'green';
+                })
+                    .then(response => response.json())
+                    .then(data => {
 
-                    }
+                        const messageElement = document.getElementById('message');
 
-                }).catch(error => {
+                        if (data.messageforfrontend) {
 
-                    console.error(error);
+                            console.log(data.messageforfrontend);
+                            messageElement.textContent = data.messageforfrontend;
+                            messageElement.style.color = 'green';
 
-                });
-        });
+                        }
+
+                    }).catch(error => {
+
+                        console.error(error);
+
+                    });
+            });
+        }
 
     </script>
 
